@@ -1,0 +1,29 @@
+﻿@page "/login"
+@inject SingleResponsibility.UserData data
+@using BlazorApp.ViewModels
+@inject SingleResponsibility.Interfaces.IUser user
+
+<h3>LoginPage</h3>
+
+<input @bind-value="userModel.UserName" />
+<input @bind-value="userModel.Password" />
+<button @onclick="UserRegisteration"> Register</button>
+<h3 style="color:green">@loginMessage</h3>
+<p>User Data</p>
+@if (loginMessage=="Login Successfull")
+{
+    @foreach (var item in data.users)
+    {
+        <h4>@item.UserName</h4>
+        <h4>@item.Email</h4>
+    }
+}
+
+@code {
+    UserViewModel userModel = new UserViewModel();
+    string loginMessage;
+    private void UserRegisteration()
+    {
+        loginMessage = user.Login(userModel.UserName, userModel.Password);
+    }
+}

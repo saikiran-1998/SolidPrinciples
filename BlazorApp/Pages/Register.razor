@@ -1,0 +1,20 @@
+﻿@page "/register"
+@using BlazorApp.ViewModels
+@inject SingleResponsibility.Interfaces.IUser user
+
+<h3>Register</h3>
+<input @bind-value="userModel.Email" />
+<input @bind-value="userModel.UserName" />
+<input @bind-value="userModel.Password" />
+<button @onclick="UserRegisteration"> Register</button>
+
+<h3 style="color:green">@registrationMessage</h3>
+
+@code {
+    UserViewModel userModel = new UserViewModel();
+    string registrationMessage;
+    private void UserRegisteration()
+    {
+       registrationMessage = user.Register(userModel.Email, userModel.UserName, userModel.Password);
+    }
+}
